@@ -1,0 +1,27 @@
+name: Continous-Integration
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  goapp:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checout to main branch
+        uses: actions/checkout@v2
+
+      - name: Docker Login
+        uses: docker/login-action@v1.10.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PWD }}
+
+      - name: Docker Build and Push Docker registry
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: giov3nn10/simple-go-api

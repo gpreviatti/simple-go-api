@@ -1,0 +1,10 @@
+version: '3.7'
+name: simple-go-api
+services:
+  api:
+    build: ./
+    environment:
+      - SERVER_PORT=8181
+      - MESSAGE='Message from docker compose'
+    ports:
+      - "8181:8181"
